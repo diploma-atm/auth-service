@@ -1,0 +1,72 @@
+plugins {
+    id("kz.diploma.dependency-management") version("1.0.0")
+}
+
+group = 'kz.diploma.auth.service'
+version = '1.0.0'
+
+java {
+    sourceCompatibility = '17'
+}
+
+repositories {
+    mavenLocal()
+    maven {
+        url = uri("https://maven.pkg.github.com/diploma-atm/library")
+        credentials {
+            username = "fragerrr"
+            password = "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"
+        }
+    }
+    mavenCentral()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "kz.diploma.shared.library:bom:1.0.3"
+    }
+}
+
+dependencies {
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    implementation 'org.postgresql:postgresql'
+    //BOOT
+    implementation 'org.springframework.boot:spring-boot-configuration-processor'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    //LIBS
+    implementation 'kz.diploma.shared.library:error-handling'
+    implementation 'kz.diploma.shared.library:model'
+
+    //CLOUD
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.cloud:spring-cloud-starter-config'
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+bootBuildImage {
+    if (!project.hasProperty("dockerImageTag")) {
+        ext.dockerImageTag = "test"
+    }
+
+    builder = "paketobuildpacks/builder-jammy-tiny"
+    createdDate = "now"
+    imageName = "ghcr.io/diploma-atm/auth-service:${dockerImageTag}"
+    environment = ["BP_NATIVE_IMAGE"             : "false",
+                   "BP_JVM_VERSION"              : "17"]
+}
