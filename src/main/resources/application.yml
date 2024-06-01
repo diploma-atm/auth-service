@@ -10,3 +10,6 @@ spring:
     allow-bean-definition-overriding: true
 server:
   port: 8045
+springdoc:
+  api-docs:
+    path: /api-docs
