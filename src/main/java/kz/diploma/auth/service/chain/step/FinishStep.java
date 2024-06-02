@@ -21,9 +21,11 @@ public class FinishStep implements AuthAbstractChainStep {
                     .append(in.getAdmin().surname)
                     .append(" ")
                     .append(in.getAdmin().name)
-                    .append(" ")
-                    .append(in.getAdmin().lastName)
                     .toString();
+
+            if(in.getAdmin().lastName != null){
+                fio += " " + in.getAdmin().lastName;
+            }
         } else {
             fio = new StringBuilder()
                     .append(in.getClient().surname)
@@ -32,6 +34,9 @@ public class FinishStep implements AuthAbstractChainStep {
                     .append(" ")
                     .append(in.getClient().lastName)
                     .toString();
+            if(in.getClient().lastName != null){
+                fio += " " + in.getAdmin().lastName;
+            }
         }
 
         var builder = OutputAuthParams.builder()
