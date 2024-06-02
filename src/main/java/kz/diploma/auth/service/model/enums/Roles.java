@@ -1,7 +1,7 @@
 package kz.diploma.auth.service.model.enums;
 
 public enum Roles {
-    CLIENT("client"), ADMIN("admin");
+    CLIENT("CLIENT"), ADMIN("ADMIN");
 
     public final String name;
 

@@ -25,12 +25,17 @@ public class FetchUserStep extends AuthConditionalChainStep {
     @Override
     public OutputAuthParams execute(InputAuthParams inputAuthParams) {
         log.info("Fetching user");
-        if(inputAuthParams.getRole() == Roles.ADMIN){
-            var admin = userService.findAdmin(inputAuthParams.getPhoneNumber()).orElse(null);
-            inputAuthParams.setAdmin(admin);
-        } else {
-            var client = userService.findClient(inputAuthParams.getPhoneNumber()).orElseThrow(null);
-            inputAuthParams.setClient(client);
+
+        var admin = userService.findAdmin(inputAuthParams.getPhoneNumber()).orElse(null);
+        inputAuthParams.setAdmin(admin);
+
+        var client = userService.findClient(inputAuthParams.getPhoneNumber()).orElse(null);
+        inputAuthParams.setClient(client);
+
+        if(admin != null){
+            inputAuthParams.setRole(Roles.ADMIN);
+        } else{
+            inputAuthParams.setRole(Roles.CLIENT);
         }
 
         return super.execute(inputAuthParams);

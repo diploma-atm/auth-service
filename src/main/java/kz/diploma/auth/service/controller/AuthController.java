@@ -2,6 +2,7 @@ package kz.diploma.auth.service.controller;
 
 import kz.diploma.auth.service.chain.AuthProcessor;
 import kz.diploma.auth.service.model.dto.AuthResponseDTO;
+import kz.diploma.auth.service.model.dto.UserInfoDTO;
 import kz.diploma.auth.service.model.request.AuthRequest;
 import kz.diploma.auth.service.model.request.CheckSessionRequest;
 import kz.diploma.auth.service.service.auth.AuthService;
@@ -21,17 +22,16 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/check/session")
-    public ResponseEntity<HttpStatus> checkSession(@RequestBody CheckSessionRequest req) {
-        var httpStatus = authService.checkSession(req.token()) ? HttpStatus.OK : HttpStatus.UNAUTHORIZED;
+    public ResponseEntity<UserInfoDTO> checkSession(@RequestBody CheckSessionRequest req) {
+        var userInfoDTO = authService.checkSession(req.token());
 
-        return new ResponseEntity<>(httpStatus);
+        return new ResponseEntity<>(userInfoDTO, HttpStatus.OK);
     }
 
     @PostMapping("/authenticate")
     public ResponseEntity<AuthResponseDTO> authenticate(@RequestBody AuthRequest authRequest) {
         var processed = authProcessor.execute(authRequest.getPhoneNumber(),
-                authRequest.getPassword(),
-                authRequest.getRole());
+                authRequest.getPassword());
 
         var headers = new HttpHeaders();
         headers.setAll(processed.getHeaders());
