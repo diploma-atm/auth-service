@@ -32,10 +32,9 @@ public class FinishStep implements AuthAbstractChainStep {
                     .append(" ")
                     .append(in.getClient().name)
                     .append(" ")
-                    .append(in.getClient().lastName)
                     .toString();
             if(in.getClient().lastName != null){
-                fio += " " + in.getAdmin().lastName;
+                fio += " " + in.getClient().lastName;
             }
         }
 
