@@ -14,14 +14,14 @@ public class ApiKeyGenerator {
 
     private final CryptoGenerator generator;
 
-    public AuthEntity generateNewKey(String phoneNumber) {
+    public AuthEntity generateNewKey(String login) {
         AuthEntity key = null;
 
         try {
             key = new AuthEntity();
             key.startDate = LocalDateTime.now();
             key.apiKey = generator.generateHmacSHA256Signature(UUID.randomUUID().toString());
-            key.phoneNumber = phoneNumber;
+            key.login = login;
             key.expiryDate = LocalDateTime.now().plusHours(25L);
         } catch (GeneralSecurityException ex) {
             ex.printStackTrace();

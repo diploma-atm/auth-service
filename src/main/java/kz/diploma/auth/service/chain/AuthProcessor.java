@@ -13,9 +13,9 @@ public class AuthProcessor {
     private final ValidateUserStep requestChain;
 
     @Transactional(rollbackFor = Exception.class)
-    public OutputAuthParams execute(String phoneNumber, String password) {
+    public OutputAuthParams execute(String login, String password) {
         return requestChain.execute(InputAuthParams.builder()
-                .phoneNumber(phoneNumber)
+                .login(login)
                 .password(password)
                 .build());
     }

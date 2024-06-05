@@ -24,7 +24,7 @@ public class GenerateApiKeyStep extends AuthChainStep {
     @Override
     public OutputAuthParams execute(InputAuthParams inputAuthParams) {
         log.info("GenerateApiKeyStep");
-        AuthEntity authEntity = apiKeyGenerator.generateNewKey(inputAuthParams.getPhoneNumber());
+        AuthEntity authEntity = apiKeyGenerator.generateNewKey(inputAuthParams.getLogin());
 
         authEntity = authSessionRepository.save(authEntity);
         inputAuthParams.setAuthEntity(authEntity);

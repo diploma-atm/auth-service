@@ -20,8 +20,8 @@ public class CheckPasswordStep extends AuthConditionalChainStep {
     @Override
     protected boolean branch(InputAuthParams inputAuthParams) {
         log.info("Checking if password is valid");
-        if(Objects.nonNull(inputAuthParams.getClient())){
-            return inputAuthParams.getClient().password.equalsIgnoreCase(inputAuthParams.getPassword());
+        if(Objects.nonNull(inputAuthParams.getProduct())){
+            return inputAuthParams.getProduct().pin.equalsIgnoreCase(inputAuthParams.getPassword());
         } else {
             return inputAuthParams.getAdmin().password.equalsIgnoreCase(inputAuthParams.getPassword());
         }

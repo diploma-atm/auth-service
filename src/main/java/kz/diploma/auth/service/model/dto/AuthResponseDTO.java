@@ -9,6 +9,6 @@ import lombok.Data;
 public class AuthResponseDTO {
     private Roles role;
     private String fio;
-    private String phoneNumber;
+    private String login;
     private String authToken;
 }

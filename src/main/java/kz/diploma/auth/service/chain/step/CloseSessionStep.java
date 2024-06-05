@@ -17,7 +17,7 @@ public class CloseSessionStep extends AuthChainStep {
 
     @Override
     public OutputAuthParams execute(InputAuthParams inputAuthParams) {
-        apiKeyService.closeSessions(inputAuthParams.getPhoneNumber());
+        apiKeyService.closeSessions(inputAuthParams.getLogin());
         return super.execute(inputAuthParams);
     }
 }

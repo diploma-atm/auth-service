@@ -27,15 +27,7 @@ public class FinishStep implements AuthAbstractChainStep {
                 fio += " " + in.getAdmin().lastName;
             }
         } else {
-            fio = new StringBuilder()
-                    .append(in.getClient().surname)
-                    .append(" ")
-                    .append(in.getClient().name)
-                    .append(" ")
-                    .toString();
-            if(in.getClient().lastName != null){
-                fio += " " + in.getClient().lastName;
-            }
+            fio = in.getProduct().pan;
         }
 
         var builder = OutputAuthParams.builder()
@@ -43,7 +35,7 @@ public class FinishStep implements AuthAbstractChainStep {
                         .role(in.getRole())
                 .fio(fio)
                 .authToken(in.getAuthEntity().apiKey)
-                .phoneNumber(in.getPhoneNumber())
+                .login(in.getLogin())
                 .build());
 
         var output = builder.build();

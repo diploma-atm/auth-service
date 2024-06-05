@@ -14,10 +14,10 @@ public interface AuthSessionRepository extends JpaRepository<AuthEntity, Long> {
     @Transactional
     @Query("""
           UPDATE AuthEntity e SET e.terminatedDate = instant
-            WHERE e.phoneNumber = :phoneNumber
+            WHERE e.login = :login
              AND e.terminatedDate IS null
              """)
-    void closeByPhoneNumber(@Param("phoneNumber") String phoneNumber);
+    void closeByLogin(@Param("login") String login);
 
 
     @Modifying

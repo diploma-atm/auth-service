@@ -15,6 +15,6 @@ public class CheckUserStatusStep extends AuthConditionalChainStep {
 
     @Override
     protected boolean branch(InputAuthParams inputAuthParams) {
-        return inputAuthParams.getRole() == Roles.ADMIN || !inputAuthParams.getClient().isBlocked;
+        return inputAuthParams.getRole() == Roles.ADMIN || !inputAuthParams.getProduct().isBlocked;
     }
 }

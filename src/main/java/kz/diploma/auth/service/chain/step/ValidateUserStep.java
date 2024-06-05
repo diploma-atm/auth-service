@@ -15,6 +15,6 @@ public class ValidateUserStep extends AuthConditionalChainStep {
 
     @Override
     protected boolean branch(InputAuthParams inputAuthParams) {
-        return StringUtils.isNotEmpty(inputAuthParams.getPhoneNumber()) && StringUtils.isNotEmpty(inputAuthParams.getPassword());
+        return StringUtils.isNotEmpty(inputAuthParams.getLogin()) && StringUtils.isNotEmpty(inputAuthParams.getPassword());
     }
 }

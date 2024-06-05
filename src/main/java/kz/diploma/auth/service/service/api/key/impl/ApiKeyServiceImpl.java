@@ -11,7 +11,7 @@ public class ApiKeyServiceImpl implements ApiKeyService {
     private final AuthSessionRepository authSessionRepository;
 
     @Override
-    public void closeSessions(String phoneNumber) {
-        authSessionRepository.closeByPhoneNumber(phoneNumber);
+    public void closeSessions(String login) {
+        authSessionRepository.closeByLogin(login);
     }
 }

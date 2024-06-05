@@ -1,10 +1,10 @@
 package kz.diploma.auth.service.service.user.impl;
 
-import kz.diploma.auth.service.service.user.UserService;
+import kz.diploma.auth.service.service.user.LoginService;
 import kz.diploma.library.shared.model.entity.AdminEntity;
-import kz.diploma.library.shared.model.entity.ClientEntity;
+import kz.diploma.library.shared.model.entity.ProductEntity;
 import kz.diploma.library.shared.model.repository.AdminRepository;
-import kz.diploma.library.shared.model.repository.ClientRepository;
+import kz.diploma.library.shared.model.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +12,9 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService {
+public class LoginServiceImpl implements LoginService {
     private final AdminRepository adminRepository;
-
-    private final ClientRepository clientRepository;
+    private final ProductRepository productRepository;
 
     @Override
     public Optional<AdminEntity> findAdmin(String phoneNumber) {
@@ -23,7 +22,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<ClientEntity> findClient(String phoneNumber) {
-        return clientRepository.findClientByPhoneNumber(phoneNumber);
+    public Optional<ProductEntity> findProduct(String pan) {
+        return productRepository.findByPan(pan);
     }
 }

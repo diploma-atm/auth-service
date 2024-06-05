@@ -6,7 +6,7 @@ import kz.diploma.auth.service.model.dto.UserInfoDTO;
 import kz.diploma.auth.service.model.enums.Roles;
 import kz.diploma.auth.service.repository.AuthSessionRepository;
 import kz.diploma.auth.service.service.auth.AuthService;
-import kz.diploma.auth.service.service.user.UserService;
+import kz.diploma.auth.service.service.user.LoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
     private final AuthSessionRepository repository;
-    private final UserService userService;
+    private final LoginService loginService;
 
     @Override
     public UserInfoDTO checkSession(String token) {
@@ -31,7 +31,7 @@ public class AuthServiceImpl implements AuthService {
             throw new AuthenticationException("Expired session");
         }
 
-        var admin = userService.findAdmin(apiKey.phoneNumber);
+        var admin = loginService.findAdmin(apiKey.login);
 
         Roles role;
         if(admin.isPresent()){
