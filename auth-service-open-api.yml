@@ -38,6 +38,24 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/UserInfoDTO'
+  /check-pin:
+    post:
+      tags:
+      - auth-controller
+      operationId: checkPin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PinRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AuthResponseDTO'
   /authenticate:
     post:
       tags:
@@ -71,12 +89,12 @@ components:
           enum:
           - CLIENT
           - ADMIN
-    AuthRequest:
+    PinRequest:
       type: object
       properties:
-        phoneNumber:
+        pan:
           type: string
-        password:
+        pin:
           type: string
     AuthResponseDTO:
       type: object
@@ -88,7 +106,14 @@ components:
           - ADMIN
         fio:
           type: string
-        phoneNumber:
+        login:
           type: string
         authToken:
+          type: string
+    AuthRequest:
+      type: object
+      properties:
+        phoneNumber:
+          type: string
+        password:
           type: string
